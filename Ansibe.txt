@@ -1,0 +1,49 @@
+Inventory: WHERE To Do the Changes
+==============================
+
+Inventory is a simple file which is available by default in ansible
+The default name of inventory file -> hosts
+This file is available in directory -> /etc/ansible
+In this file we will write the list of IP address or hostnames of the servers where ansible has to make the changes
+Only and only if the IP of the host is present in this file, ansible will be able to connect and make changes on it.
+We can also create inventory file with any name in any location of the ansible controller
+From Trainings to Everyone 08:33 PM
+@Mohammad -- ansible is a configuration management tool
+not a IAC
+
+
+https://raw.githubusercontent.com/Sonal0409/startAgile-Batch-Evening-20Feb/refs/heads/main/Ansible/Notes
+sudo apt update
+sudo apt install ansible -y
+mkdir ansible_loops && cd ansible_loops
+mkdir -p fresco_loops/tasks
+touch fresco_loops/tasks/main.yml
+touch mainplaybook.yml
+Step 4: Write the Task File (main.yml)
+- name: Install packages using loop
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - apache2
+    - sqlite3
+    - git
+Step 5: Create the Playbook (mainplaybook.yml)
+- name: Install required packages
+  hosts: localhost
+  become: yes
+  tasks:
+    - include_tasks: fresco_loops/tasks/main.yml
+Step 6: Run the Playbook
+Execute:
+ansible-playbook mainplaybook.yml
+
+Verification
+Check if the packages are installed:
+
+bash
+Copy
+Edit
+apache2 -v
+sqlite3 --version
+git --version

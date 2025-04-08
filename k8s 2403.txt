@@ -1,0 +1,51 @@
+k8s 250325
+Deployment -> Allows us to update the image -> delete old pods with old image and create new pods with new image
+here we are applying a default deployment strategy --> rolling update --> 
+We have to give 2 parameters: maxSurge = how many new pods have to be created 
+maxUnavailable = how many old pods have to be deleted
+
+
+https://github.com/Sonal0409/DevOpsClassCodes 
+I'm using this repo
+FROM tomcat:9
+COPY target/*.war /usr/local/tomcat/webapps
+EXPOSE 8080
+CMD ["catalina.sh", "run"]
+https://kubernetes.io/
+
+https://github.com/Sonal0409/startAgile-Batch-Evening-20Feb
+
+
+
+
+
+
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx
+  labels:
+    app: nginx
+spec:
+  replicas: 3
+  minReadySeconds: 10
+  strategy:
+    type: RollingUpdate
+    rollingupdate:
+      maxUnavailable: 1
+      maxSurge: 1
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+        - name: nginx-container
+          image: nginx
+        - name: nginx:v1.0
+        ports:
+          - containerPort: 80

@@ -1,0 +1,82 @@
+sudo apt update
+ sudo apt install apt-transport-https ca-certificates curl software-properties-common
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+apt-cache policy docker-ce
+sudo apt install docker-ce
+sudo systemctl status docker
+###################################
+docker show me ur all container process 
+docker ps -a
+docekr run ubuntu
+docker ps -a
+
+#######################
+1.it flag attached 
+Container should be created
+cont should have a unique name
+container should be running 
+user root should br attached to th termina; of the container
+
+docker run --name=container1 -it ubuntu (it :I is for interaction and t is for terminal)
+#################################
+come out of the container and keep it running
+press CTRL key and pq
+#####################
+attach or move inside the container agaian
+#docker attach cont1 (container name)
+
+Start existing container 
+#docker start cont1 (container name)
+
+For stopping conytainer 
+#docker stop cont1
+
+#################################
+2.-d deatached mode 
+We will always lauched the container in the deatached mode
+Container should be created
+cont should have a unique name
+container should be running 
+user root  will not attached to th termina; of the container
+container will continue to run in the background
+user root will be on the VM terminal
+# docker run nginx
+exit /ctrl c
+#docker run -d --name=web nginx
+
+3.Execute a command on the container from the vm terminal itself
+
+#docker exec web cat /etc/os-release
+# docker exec web nginx -version
+
+4.command for deleting all container #docker rm -f $(docker ps -aq)
+5.After creating the container we need to acces it from the browser so for tha purpose we use port forwarding and it is used in detached mode 
+#docker run -d --name web22 -P nginx 
+-P is the flag for port forwarding 
+
+then u will see in port section open free port id forwarding request to the container port and vm PORT  FOWARDED TO CONTAINER PORT.
+*image is just an executable static file .
+
+*When u pull the img it does not create a container for you.
+#docker pull httpd (apache img)
+#docker images
+#docker ps -a (u can see container has not created)\
+name of the img wil be always in the lower case.
+
+Now u want a container apache on it the u will use
+#docker run --name cont1apache -d -P httpd  (by using this container will create but It will run in background and u will be using ur terminal without going inside the container after creation because we use -d (detached mode) and u want  to acces the html page of webserver which comes bydefault by giving public ip and port number use -P (-P is use for port mapping so that we can access it from the browser of the machine)
+*Once the container is created port mapping can not done so u have to delete it or recreate it.
+
+
+Now you want to update that apache default page .....
+1.Go inside the container and use exec cmd
+#docker exec -it aaditya bash (aaditya is the container name & -it is for attaching it to the terminal)
+2.after using docker exec -it aaditya bash,,cmd u will be in this /usr/local/apache2# directory.
+3.Use #ls cmd 
+4.that default html file will be in htdocs folder
+5.#cd htdocs >ls>cat index.html>echo "        " >
+
+docker run --name=container1 ubuntu (for naming the container )
+for deleting 1 container;docker rm -f <container name/ID>
+DELETE ALL CONTAINER :docker rm -f$(docker ps -a)
